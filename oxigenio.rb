@@ -19,7 +19,7 @@ class Oxigenio
 		if (@barra.size <= 5) then
 			@tempo_resto = 20
 		end
-		oxigenio_vidas 
+	
 	end
 
 
@@ -29,10 +29,15 @@ class Oxigenio
 	end
 
 	def oxigenio_vidas 
-		if (@barra.size < 5) then
+		if (@barra.size < 1) then
 			true
 		end 
 
+	end
+	def restaura_oxigenio(completa)
+		if (completa) then
+			@barra = Array.new(10) {|n| 1 * 1}
+		end
 	end
 	# def draw
  #    imagem= @imagens[Gosu::milliseconds / 100 % @imagens.size]

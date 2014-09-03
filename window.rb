@@ -21,7 +21,10 @@ class Window < Gosu::Window
     
     def update
         if @running
+
             if @player.hit_by? live_inimigos 
+                @running = false
+            elsif (@oxigenio.oxigenio_vidas)
                 @running = false
             else
                 run_game
@@ -32,6 +35,7 @@ class Window < Gosu::Window
         if not @running and button_down? Gosu::Button::KbR and @player.lives > 0
             @running = true
             @player.reset_position
+            @oxigenio.restaura_oxigenio(true)
         end
     end
     
