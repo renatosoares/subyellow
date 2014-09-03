@@ -3,27 +3,36 @@ require 'gosu'
 class Oxigenio 
 	attr_reader :tempo, :barra
 
-	def initialize (window)
+	def initialize (window, player)
+		@player = player
 		@window = window
 		@barra = Array.new(10) {|n| 1 * 1}
-		@tempo_resto = 400
+		@tempo_resto = 50
 		@tempo = 0
+		#@player = Player.new(self)
 	end
 	def update
-
 		@tempo = (@tempo + 1) % @tempo_resto #Gosu::milliseconds / 1000 % 10
 		if (@tempo == 2) then
-		
 			@barra.pop(1)	
 		end
+		if (@barra.size <= 5) then
+			@tempo_resto = 20
+		end
+		oxigenio_vidas 
 	end
 
-		
-	
-	def draw
 
+	def draw
 		@barra.draw
 		@tempo.draw
+	end
+
+	def oxigenio_vidas 
+		if (@barra.size < 5) then
+			true
+		end 
+
 	end
 	# def draw
  #    imagem= @imagens[Gosu::milliseconds / 100 % @imagens.size]

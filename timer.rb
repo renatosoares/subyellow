@@ -5,7 +5,7 @@ class Timer
 		@mergulhador = mergulhador
 		@window = window
 		#@start_time = Time.now
-		@every_n_seconds = 5
+		@every_n_seconds = 10
 		@last_recorded_seconds = 0
 		@last_recorded_seconds_mergulhador = 0
 		@timer_mergulhador = 15

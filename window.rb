@@ -4,8 +4,8 @@ class Window < Gosu::Window
         super(640,480,false)
         self.caption = "Gama"
         @player = Player.new(self)
-        @tubarao = rand(1..3).times.map {Tubarao.new(self)}
-        @subinimigo = rand(1..4).times.map {SubInimigo.new(self)}
+        @tubarao = rand(1..2).times.map {Tubarao.new(self)}
+        @subinimigo = rand(1..3).times.map {SubInimigo.new(self)}
         @mergulhador = 1.times.map {Mergulhador.new(self)}
         @timer = Timer.new(self, @tubarao, @subinimigo, @mergulhador) #objeto para controlar o tempo de aparição dos inimigos
         @running = true
@@ -13,7 +13,7 @@ class Window < Gosu::Window
         @texto = Gosu::Font.new(self, Gosu::default_font_name, 20)
         @background = Gosu::Image.new(self, "fundo.png", true)
         #@inicio = Gosu::Sample.new(@window, "start_game.mp3")
-        @oxigenio = Oxigenio.new(self)
+        @oxigenio = Oxigenio.new(self, @player)
         @barra_oxigenio = Gosu::Font.new(self, Gosu::default_font_name, 20)
         @tempo_barra_oxigenio = Gosu::Font.new(self, Gosu::default_font_name, 20)
 

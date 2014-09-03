@@ -1,5 +1,5 @@
 class Player
-	attr_reader :lives, :x, :y, :laser, :direcao
+	attr_reader :lives, :x, :y, :laser, :direcao, :exploded
 	def initialize(window)
 		@window = window
 		@icon = Gosu::Image.new(@window, "subyellow.png", true)
@@ -10,6 +10,7 @@ class Player
 		@lives = 3
 		@laser = Laser.new(self, @window)
 		@direcao = 1
+		#@oxigenio = Oxigenio.new(self)
 	end
 	def update
 		if @window.button_down? Gosu::Button::KbLeft
@@ -30,6 +31,7 @@ class Player
 			@laser.shoot(@x, @y, @direcao)
 		end
 		@laser.update
+
 	end
 	def move_right
 		@x = @x + 5
@@ -77,7 +79,10 @@ class Player
 			end
 			@exploded
 		end
+	
+	
 	end
+
 	def reset_position
 		@x = rand(@window.width)
 	end
