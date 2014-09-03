@@ -26,6 +26,7 @@ class Window < Gosu::Window
                 @running = false
             elsif (@oxigenio.oxigenio_vidas)
                 @running = false
+                @player.vidas_removida_oxigenio(@oxigenio.oxigenio_vidas)
             else
                 run_game
 
@@ -65,7 +66,7 @@ class Window < Gosu::Window
         live_inimigos.each {|tubarao| tubarao.draw}
         resgate_mergulhador.each {|mergulhador| mergulhador.draw}
         @tempo_barra_oxigenio.draw("tempo: #{@oxigenio.tempo.to_i}", 10, 430, 3.0, 1.5, 1.0, 0xffffffff)
-        @barra_oxigenio.draw("oxigenio: #{@oxigenio.barra}", 200, 430, 3.0, 1.5, 1.0, 0xffffffff)
+        @barra_oxigenio.draw("oxigenio: #{@oxigenio.barra}", 200, 406, 3.0, 1.5, 1.0, 0xffffffff)
     
         @texto.draw("score: #{@tubarao[0].pts}", 20, 40, 3.0, 1.0, 1.0, 0xffffffff)
 

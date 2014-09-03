@@ -65,6 +65,14 @@ class Player
 			@laser.draw
 		end
 	end
+	#função para decrementar vida quando array do oxigenio chegar a 0
+	def vidas_removida_oxigenio(barra)
+		if(barra)then
+			@lives = @lives - 1
+			@exploded = barra
+		end
+	end
+
 	def hit_by?(inimigos) #nesta função onde tinha "bullets" e "bullet" mudei para "inimigos" e "inimigo"
 		if (@direcao==1)
 			@exploded = inimigos.any? {|inimigo| Gosu::distance(inimigo.x, inimigo.y, @x+15, @y+5) < 30}
