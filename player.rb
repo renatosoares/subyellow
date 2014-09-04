@@ -11,6 +11,7 @@ class Player
 		@laser = Laser.new(self, @window)
 		@direcao = 1
 		@coletados = 0
+		#@parar = true
 		#@oxigenio = Oxigenio.new(self)
 	end
 	def update
@@ -74,9 +75,19 @@ class Player
 		end
 	end
 	def mergulhador_coletado(mergulhadores)
-		if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x+15, @y+5) < 30}) then
+			if (@direcao==1)
+					if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x, @y) < 20}) then
 			@coletados = @coletados + 1
+
 		end
+		else 
+				if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x, @y) < 20}) then
+			@coletados = @coletados + 1
+
+		end
+		end
+		
+
 
 	end
 	def hit_by?(inimigos) #nesta função onde tinha "bullets" e "bullet" mudei para "inimigos" e "inimigo"

@@ -6,7 +6,7 @@ class Window < Gosu::Window
         @player = Player.new(self)
         @tubarao = rand(1..2).times.map {Tubarao.new(self)}
         @subinimigo = rand(1..3).times.map {SubInimigo.new(self)}
-        @mergulhador = 1.times.map {Mergulhador.new(self)}
+        @mergulhador = rand(1..7).times.map {Mergulhador.new(self)}
         @timer = Timer.new(self, @tubarao, @subinimigo, @mergulhador) #objeto para controlar o tempo de aparição dos inimigos
         @running = true
         @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
@@ -70,7 +70,7 @@ class Window < Gosu::Window
         @tempo_barra_oxigenio.draw("tempo: #{@oxigenio.tempo.to_i}", 10, 430, 3.0, 1.5, 1.0, 0xffffffff)
         @barra_oxigenio.draw("oxigenio: #{@oxigenio.barra}", 200, 406, 3.0, 1.5, 1.0, 0xffffffff)
     
-        @texto.draw("score: #{@tubarao[0].pts}", 20, 40, 3.0, 1.0, 1.0, 0xffffffff)
+        #@texto.draw("score: #{@tubarao[0].pts}", 20, 40, 3.0, 1.0, 1.0, 0xffffffff)
         @contador_mergulhador.draw("Megulhadores: #{@player.coletados}", 150, 40, 3.0, 1.0, 1.0, 0xffffffff)
         @font.draw("Lives: #{@player.lives}", 10, 10, 3.0, 1.0, 1.0, 0xffffffff)
     end
