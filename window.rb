@@ -16,6 +16,7 @@ class Window < Gosu::Window
         @oxigenio = Oxigenio.new(self, @player)
         @barra_oxigenio = Gosu::Font.new(self, Gosu::default_font_name, 20)
         @tempo_barra_oxigenio = Gosu::Font.new(self, Gosu::default_font_name, 20)
+        @contador_mergulhador = Gosu::Font.new(self, Gosu::default_font_name, 20)
 
     end
     
@@ -47,6 +48,7 @@ class Window < Gosu::Window
         @player.update
         @timer.update
         @oxigenio.update
+        @player.mergulhador_coletado(resgate_mergulhador)
         
     end
     def resgate_mergulhador
@@ -69,7 +71,7 @@ class Window < Gosu::Window
         @barra_oxigenio.draw("oxigenio: #{@oxigenio.barra}", 200, 406, 3.0, 1.5, 1.0, 0xffffffff)
     
         @texto.draw("score: #{@tubarao[0].pts}", 20, 40, 3.0, 1.0, 1.0, 0xffffffff)
-
+        @contador_mergulhador.draw("Megulhadores: #{@player.coletados}", 150, 40, 3.0, 1.0, 1.0, 0xffffffff)
         @font.draw("Lives: #{@player.lives}", 10, 10, 3.0, 1.0, 1.0, 0xffffffff)
     end
     

@@ -6,8 +6,8 @@ class Oxigenio
 	def initialize (window, player)
 		@player = player
 		@window = window
-		@barra = Array.new(10) {|n| 1 * 1}
-		@tempo_resto = 50
+		@barra = Array.new(10) {|n| 1}
+		@tempo_resto = 500
 		@tempo = 0
 		#@player = Player.new(self)
 	end
@@ -17,7 +17,7 @@ class Oxigenio
 			@barra.pop(1)	
 		end
 		if (@barra.size <= 5) then
-			@tempo_resto = 20
+			@tempo_resto = 200
 		end
 	
 	end

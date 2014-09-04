@@ -1,5 +1,5 @@
 class Player
-	attr_reader :lives, :x, :y, :laser, :direcao, :exploded
+	attr_reader :lives, :x, :y, :laser, :direcao, :exploded, :coletados
 	def initialize(window)
 		@window = window
 		@icon = Gosu::Image.new(@window, "subyellow.png", true)
@@ -10,6 +10,7 @@ class Player
 		@lives = 3
 		@laser = Laser.new(self, @window)
 		@direcao = 1
+		@coletados = 0
 		#@oxigenio = Oxigenio.new(self)
 	end
 	def update
@@ -72,7 +73,12 @@ class Player
 			@exploded = barra
 		end
 	end
+	def mergulhador_coletado(mergulhadores)
+		if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x+15, @y+5) < 30}) then
+			@coletados = @coletados + 1
+		end
 
+	end
 	def hit_by?(inimigos) #nesta função onde tinha "bullets" e "bullet" mudei para "inimigos" e "inimigo"
 		if (@direcao==1)
 			@exploded = inimigos.any? {|inimigo| Gosu::distance(inimigo.x, inimigo.y, @x+15, @y+5) < 30}

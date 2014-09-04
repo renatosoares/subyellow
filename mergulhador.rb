@@ -8,7 +8,7 @@ class Mergulhador
         @y = rand(120..200) #rand(@window.height - 500) #nivel superior para aparecer objetos
         @alive = true
         @beep = Gosu::Sample.new(@window, "kill_shark.ogg")
-        @resgatados = []
+       
         
     end
    
@@ -32,7 +32,7 @@ class Mergulhador
     def resgate(player)
         if Gosu::distance(player.y, player.x, @y, @x) < 20
             @alive = false
-            @resgatados << 1
+            
         end
     end
    

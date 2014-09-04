@@ -10,10 +10,10 @@ class Laser
 		@direcao = 1
 	end
 	def shoot(x,y, direcao)
-		@shooting = true
-		@direcao =direcao
-		@x = x
-		@y  = y
+			@shooting = true
+			@direcao =direcao
+			@x = x
+			@y  = y
 	end
 	def update
 		# if @window.button_down? Gosu::Button::KbLeft and not @shooting
