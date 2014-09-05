@@ -2,16 +2,17 @@ class Window < Gosu::Window
 
     def initialize
         super(640,480,false)
-        self.caption = "Gama"
+        self.caption = "Sub_Yellow"
         @player = Player.new(self)
         @tubarao = rand(1..2).times.map {Tubarao.new(self)}
         @subinimigo = rand(1..3).times.map {SubInimigo.new(self)}
-        @mergulhador = rand(1..7).times.map {Mergulhador.new(self)}
+        @mergulhador = 1.times.map {Mergulhador.new(self)}
         @timer = Timer.new(self, @tubarao, @subinimigo, @mergulhador) #objeto para controlar o tempo de aparição dos inimigos
         @running = true
         @font = Gosu::Font.new(self, Gosu::default_font_name, 20)
         @texto = Gosu::Font.new(self, Gosu::default_font_name, 20)
         @background = Gosu::Image.new(self, "fundo.png", true)
+        @superficie = Gosu::Image.new(self, "mar_superficie.png", true)
         #@inicio = Gosu::Sample.new(@window, "start_game.mp3")
         @oxigenio = Oxigenio.new(self, @player)
         @barra_oxigenio = Gosu::Font.new(self, Gosu::default_font_name, 20)
@@ -25,9 +26,12 @@ class Window < Gosu::Window
 
             if @player.hit_by? live_inimigos 
                 @running = false
-            elsif (@oxigenio.oxigenio_vidas)
+            elsif (@oxigenio.oxigenio_vidas) then
                 @running = false
                 @player.vidas_removida_oxigenio(@oxigenio.oxigenio_vidas)
+            elsif 
+                @player.descarregar_mergulhadores
+                @running = false 
             else
                 run_game
 
@@ -69,9 +73,9 @@ class Window < Gosu::Window
         resgate_mergulhador.each {|mergulhador| mergulhador.draw}
         @tempo_barra_oxigenio.draw("tempo: #{@oxigenio.tempo.to_i}", 10, 430, 3.0, 1.5, 1.0, 0xffffffff)
         @barra_oxigenio.draw("oxigenio: #{@oxigenio.barra}", 200, 406, 3.0, 1.5, 1.0, 0xffffffff)
-    
+        @superficie.draw(0, 98, 6)
         #@texto.draw("score: #{@tubarao[0].pts}", 20, 40, 3.0, 1.0, 1.0, 0xffffffff)
-        @contador_mergulhador.draw("Megulhadores: #{@player.coletados}", 150, 40, 3.0, 1.0, 1.0, 0xffffffff)
+        @contador_mergulhador.draw("Megulhadores: #{@player.coletados}", 220, 425, 3.0, 1.0, 1.0, 0xffffffff)
         @font.draw("Lives: #{@player.lives}", 10, 10, 3.0, 1.0, 1.0, 0xffffffff)
     end
     

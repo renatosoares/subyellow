@@ -3,8 +3,8 @@ class Player
 	def initialize(window)
 		@window = window
 		@icon = Gosu::Image.new(@window, "subyellow.png", true)
-		@x = 100
-		@y = window.height - 200
+		@x = window.width / 2
+		@y = window.height / 2
 		@explosion = Gosu::Image.new(@window, "explosion.png", true)
 		@exploded = false
 		@lives = 3
@@ -15,6 +15,7 @@ class Player
 		#@oxigenio = Oxigenio.new(self)
 	end
 	def update
+		
 		if @window.button_down? Gosu::Button::KbLeft
 			move_left
 			@direcao=-1
@@ -55,8 +56,8 @@ class Player
 	end
 	def move_up
 		@y = @y - 5
-		if @y < 120
-			@y = 120
+		if @y < 85
+			@y = 85
 		end
 	end
 	def draw
@@ -67,6 +68,7 @@ class Player
 			@laser.draw
 		end
 	end
+
 	#função para decrementar vida quando array do oxigenio chegar a 0
 	def vidas_removida_oxigenio(barra)
 		if(barra)then
@@ -74,22 +76,36 @@ class Player
 			@exploded = barra
 		end
 	end
+
+	#coleta mergulhadores e contabiliza a quantidade de resgatados
 	def mergulhador_coletado(mergulhadores)
+		if (@coletados < 7) then
 			if (@direcao==1)
 					if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x, @y) < 20}) then
-			@coletados = @coletados + 1
-
+						@coletados = @coletados + 1
+					end
+					
+			else 
+					if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x+1, @y) < 20}) then
+						@coletados = @coletados + 1
+					end
+			end
 		end
-		else 
-				if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x, @y) < 20}) then
-			@coletados = @coletados + 1
-
-		end
-		end
-		
-
-
 	end
+	
+	#regenera o nível do oxigenio quando os mergulhadores são descarregados na superficie
+	def descarregar_mergulhadores
+		if (@y == 85 and @coletados !=0) then
+			@coletados = 0
+		elsif (@y == 85 and @coletados == 0) then
+			if (@lives > 0) then
+				@lives = @lives - 1
+				reset_position
+			end
+			@exploded = true
+		end
+	end
+
 	def hit_by?(inimigos) #nesta função onde tinha "bullets" e "bullet" mudei para "inimigos" e "inimigo"
 		if (@direcao==1)
 			@exploded = inimigos.any? {|inimigo| Gosu::distance(inimigo.x, inimigo.y, @x+15, @y+5) < 30}
@@ -110,5 +126,6 @@ class Player
 
 	def reset_position
 		@x = rand(@window.width)
+		@y = rand(85..380)
 	end
 end
