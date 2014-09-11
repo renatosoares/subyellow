@@ -2,15 +2,16 @@ class Player
 	attr_reader :lives, :x, :y, :laser, :direcao, :exploded, :coletados
 	def initialize(window)
 		@window = window
-		@icon = Gosu::Image.new(@window, "subyellow.png", true)
+		@icon = Gosu::Image::load_tiles(@window, 'subyellow_all.png', 65, 22, true)
 		@x = window.width / 2
 		@y = window.height / 2
 		@explosion = Gosu::Image.new(@window, "explosion.png", true)
 		@exploded = false
-		@lives = 3
+		@lives = 10
 		@laser = Laser.new(self, @window)
 		@direcao = 1
 		@coletados = 0
+		@chave = 1
 		#@parar = true
 		#@oxigenio = Oxigenio.new(self)
 	end
@@ -50,8 +51,8 @@ class Player
 	end
 	def move_down
 		@y = @y + 5
-		if @y > 350
-			@y = 350
+		if @y > 360
+			@y = 360
 		end
 	end
 	def move_up
@@ -63,8 +64,13 @@ class Player
 	def draw
 		if @exploded
 			@explosion.draw(@x, @y, 4)
+		elsif @direcao==1			
+			icon = @icon[Gosu::milliseconds / 100 % @icon.size]
+       		icon.draw(@x - icon.width / 2.0, @y - icon.height / 2.0, 2, @direcao)
+			@laser.draw
 		else
-			@icon.draw(@x, @y, 2, @direcao)
+			icon = @icon[Gosu::milliseconds / 100 % @icon.size]
+       		icon.draw(@x + icon.width, @y - icon.height / 2.0, 2, @direcao)
 			@laser.draw
 		end
 	end
@@ -80,29 +86,37 @@ class Player
 	#coleta mergulhadores e contabiliza a quantidade de resgatados
 	def mergulhador_coletado(mergulhadores)
 		if (@coletados < 7) then
-			if (@direcao==1)
+			# if (@direcao==1)
 					if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x, @y) < 20}) then
 						@coletados = @coletados + 1
 					end
 					
-			else 
-					if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x+1, @y) < 20}) then
-						@coletados = @coletados + 1
-					end
-			end
+			# else 
+			# 		if (mergulhadores.any? {|mergulhador| Gosu::distance(mergulhador.x, mergulhador.y, @x+1, @y) < 20}) then
+			# 			@coletados = @coletados + 1
+			# 		end
+			# end
 		end
 	end
 	
 	#regenera o nível do oxigenio quando os mergulhadores são descarregados na superficie
-	def descarregar_mergulhadores
+	def descarregar_mergulhadores(oxigenio)
+		if (@y >= 95) then
+			@chave = 1
+		end
 		if (@y == 85 and @coletados !=0) then
 			@coletados = 0
-		elsif (@y == 85 and @coletados == 0) then
+			@chave = 0
+			oxigenio.porcentagem = 1.1
+
+
+		elsif (@y == 85 and @coletados == 0 and @chave == 1) then
 			if (@lives > 0) then
 				@lives = @lives - 1
-				reset_position
+				
 			end
 			@exploded = true
+			
 		end
 	end
 

@@ -3,7 +3,7 @@ class Mergulhador
    
     def initialize(window)
         @window = window
-        @icon = Gosu::Image.new(@window, 'mergulhador.png', true)
+        @icon = Gosu::Image::load_tiles(@window, 'mergulhador_all.png', 38, 36, true)
         @x = 630#- rand(200) #determina de onde vai aparecer inicialmente inimigos no eixo X
         @y = rand(120..200) #rand(@window.height - 500) #nivel superior para aparecer objetos
         @alive = true
@@ -26,7 +26,8 @@ class Mergulhador
     end
    
     def draw
-        @icon.draw(@x, @y, 7)
+        icon= @icon[Gosu::milliseconds / 100 % @icon.size]
+        icon.draw(@x + 1.5*icon.width, @y - icon.height / 2.0, 7, -1)
     end
    
     def resgate(player)

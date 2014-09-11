@@ -3,7 +3,7 @@ class SubInimigo
    
     def initialize(window)
         @window = window
-        @icon = Gosu::Image.new(@window, 'subinimigo_right.png', true)
+        @icon = Gosu::Image::load_tiles(@window, 'subinimigo_right_all.png', 35, 23, true)
         @x = 630#- rand(200) #determina de onde vai aparecer inicialmente inimigos no eixo X
         @y = rand(120..350) #rand(@window.height - 500) #nivel superior para aparecer objetos
         @alive = true
@@ -24,7 +24,9 @@ class SubInimigo
     end
    
     def draw
-        @icon.draw(@x, @y, 6)
+        icon= @icon[Gosu::milliseconds / 100 % @icon.size]
+        icon.draw(@x + icon.width / 2.0, @y - icon.height / 2.0, 6)
+ 
     end
    
     def hit_by?(laser)
