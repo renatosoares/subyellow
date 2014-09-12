@@ -12,7 +12,10 @@ class Player
 		@direcao = 1
 		@coletados = 0
 		@chave = 1
+<<<<<<< HEAD
 		@ponto_decarrega = 95
+=======
+>>>>>>> b0d592356b8ef480a9b7bcd3a0ab242716b46792
 		#@parar = true
 		#@oxigenio = Oxigenio.new(self)
 	end
@@ -105,15 +108,23 @@ class Player
 	
 	#regenera o nível do oxigenio quando os mergulhadores são descarregados na superficie
 	def descarregar_mergulhadores(oxigenio)
+<<<<<<< HEAD
 		if (@y >= 105) then
 			@chave = 1
 		end
 		if (@y == @ponto_decarrega and @coletados !=0) then
+=======
+		if (@y >= 95) then
+			@chave = 1
+		end
+		if (@y == 85 and @coletados !=0) then
+>>>>>>> b0d592356b8ef480a9b7bcd3a0ab242716b46792
 			@coletados = 0
 			@chave = 0
 			oxigenio.porcentagem = 1.1
 
 
+<<<<<<< HEAD
 		elsif (@y == @ponto_decarrega and @coletados == 0 and @chave == 1) then
 			@ponto_decarrega = 50
 			@exploded = true
@@ -123,6 +134,14 @@ class Player
 			end
 			@exploded
 			
+=======
+		elsif (@y == 85 and @coletados == 0 and @chave == 1) then
+			if (@lives > 0) then
+				@lives = @lives - 1
+				
+			end
+			@exploded = true
+>>>>>>> b0d592356b8ef480a9b7bcd3a0ab242716b46792
 			
 		end
 		

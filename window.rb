@@ -44,9 +44,22 @@ class Window < Gosu::Window
                 @player.vidas_removida_oxigenio(@oxigenio.oxigenio_vidas)
             elsif 
                 @player.descarregar_mergulhadores(@oxigenio)
+<<<<<<< HEAD
                 if (@player.exploded) then
                     @running = false
                 end
+=======
+                #para11 = true 
+
+                #@running = false
+                # count = 0
+                # if(not @running and count < 60)then
+                #     count = count + 1
+                # else
+                #     @running = true
+                #     count = 0
+                # end 
+>>>>>>> b0d592356b8ef480a9b7bcd3a0ab242716b46792
             else
                 run_game
 
@@ -94,7 +107,11 @@ class Window < Gosu::Window
         #@texto.draw("score: #{@tubarao[0].pts}", 20, 40, 3.0, 1.0, 1.0, 0xffffffff)
         @contador_mergulhador.draw("Megulhadores: #{@player.coletados}", 220, 425, 3.0, 1.0, 1.0, 0xffffffff)
         @font.draw("Lives: #{@player.lives}", 10, 10, 3.0, 1.0, 1.0, 0xffffffff)
+<<<<<<< HEAD
         #@escreve_roda_tempo.draw("tempo agora: #{@roda_tempo}", 220, 300, 3.0, 1.0, 1.0, 0xffffffff)
+=======
+        @escreve_roda_tempo.draw("tempo agora: #{@roda_tempo}", 220, 300, 3.0, 1.0, 1.0, 0xffffffff)
+>>>>>>> b0d592356b8ef480a9b7bcd3a0ab242716b46792
         mare = @mare[Gosu::milliseconds / 100 % @mare.size]
         mare.draw(0, 96, 15)
         @barra_vermelha.draw(150, 410, 10)
