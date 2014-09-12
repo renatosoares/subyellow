@@ -3,7 +3,7 @@ class Tubarao
    
     def initialize(window)
         @window = window
-        @icon = Gosu::Image.new(@window, 'tubarao_a.png', true)
+        @icon = Gosu::Image::load_tiles(@window, 'tubarao_all.png', 35, 16, true)
         @x = 0#- rand(200) #determina de onde vai aparecer inicialmente inimigos no eixo X
         @y = rand(120..195) #rand(@window.height - 500) #nivel superior para aparecer objetos
         @alive = true
@@ -31,7 +31,8 @@ class Tubarao
     end
    
     def draw
-        @icon.draw(@x, @y, 5)
+       icon= @icon[Gosu::milliseconds / 100 % @icon.size]
+        icon.draw(@x + icon.width / 2.0, @y - icon.height / 2.0, 5)
     end
    
     def hit_by?(laser)

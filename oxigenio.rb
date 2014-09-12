@@ -2,30 +2,34 @@ require 'gosu'
 
 class Oxigenio 
 	attr_reader :tempo, :barra
+	attr_accessor :porcentagem
 
 	def initialize (window, player)
 		@player = player
 		@window = window
 		@barra = Array.new(10) {|n| 1}
-		@tempo_resto = 500
+		@tempo_resto = 400
 		@tempo = 0
+		@porcentagem = 1.1
 		#@player = Player.new(self)
 	end
 	def update
 		@tempo = (@tempo + 1) % @tempo_resto #Gosu::milliseconds / 1000 % 10
 		if (@tempo == 2) then
-			@barra.pop(1)	
+			@porcentagem -= 0.1 
+			# @barra.pop(1)	
 		end
-		if (@barra.size <= 5) then
-			@tempo_resto = 200
+		if (@barra.size <= 0.5) then
+			@tempo_resto = 300
 		end
 	
 	end
 
 
 	def draw
-		@barra.draw
-		@tempo.draw
+		# @barra_vermelha.draw(10, 380, 10)
+		# @barra_branca.draw(100, 380, 11)
+		# @tempo.draw
 	end
 
 	def oxigenio_vidas 
@@ -36,7 +40,7 @@ class Oxigenio
 	end
 	def restaura_oxigenio(completa)
 		if (completa) then
-			@barra = Array.new(10) {|n| 1 * 1}
+			@porcentagem = 1.1
 		end
 	end
 	# def draw
