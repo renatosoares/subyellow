@@ -1,5 +1,6 @@
 class SubInimigo
-    attr_reader :x, :y, :alive
+    attr_reader :x, :y, :alive    
+    attr_accessor :pts
    
     def initialize(window)
         @window = window
@@ -20,19 +21,18 @@ class SubInimigo
         hit_by?(laser)
         if(@alive == false) then
             @beep.play
+            @window.pts += 10
         end
     end
    
     def draw
         icon= @icon[Gosu::milliseconds / 100 % @icon.size]
         icon.draw(@x + icon.width / 2.0, @y - icon.height / 2.0, 6)
- 
     end
    
     def hit_by?(laser)
         if Gosu::distance(laser.y, laser.x, @y, @x) < 20
             @alive = false
-
         end
     end
    
